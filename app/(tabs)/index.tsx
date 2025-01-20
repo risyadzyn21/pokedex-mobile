@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Image, ScrollView, StyleSheet } from 'react-native';
 
 import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
@@ -7,7 +7,7 @@ import axios from 'axios';
 
 interface Pokemon {
   name: string;
-  url: string;  
+  url: string;
 }
 
 interface PokemonList {
@@ -22,30 +22,43 @@ export default function TabOneScreen() {
     });
   }, []);
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       {datas.datas.map((data) => (
-        <Text key={data.name}>{data.name}</Text>
+        <View key={data.name} style={styles.cardList}>
+          <Image source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Pokebola-pokeball-png-0.png/601px-Pokebola-pokeball-png-0.png' }} style={styles.tinyLogo} />
+          <Text style={styles.title}>{data.name}</Text>
+        </View>
+
       ))}
-      {/* <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    gap: 10,
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
+    textTransform: 'capitalize',
+    width: '100%',
   },
   separator: {
     marginVertical: 30,
     height: 1,
     width: '80%',
+  },
+  cardList: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    boxShadow: '0px 0px 27px 0px rgba(0,0,0,0.10)',
+    padding: 10,
+  },
+  tinyLogo: {
+    width: 50,
+    height: 50,
   },
 });
